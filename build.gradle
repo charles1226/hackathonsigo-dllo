@@ -1,0 +1,40 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+group = 'com.siigo.invoice'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.security.oauth:spring-security-oauth2:2.3.4.RELEASE'
+	implementation 'org.springframework.security:spring-security-jwt:1.0.9.RELEASE'
+	implementation 'org.springframework.security:spring-security-core'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	compileOnly('org.projectlombok:lombok')
+	compile('org.apache.commons:commons-lang3')
+	runtimeOnly 'org.postgresql:postgresql'
+	testImplementation 'junit:junit:4.12'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
