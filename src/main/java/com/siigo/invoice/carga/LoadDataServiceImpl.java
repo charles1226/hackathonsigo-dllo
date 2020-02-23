@@ -72,7 +72,6 @@ public class LoadDataServiceImpl implements LoadDataService {
 		if(iProductoService.findByNombre(producto.getNombre()).isEmpty()||iProductoService.findByNombre(producto.getNombre()).size()==0) {
 			iProductoService.save(producto);
 		}else {
-			System.out.println("El producto ya existe");
 			LOGGER.log(Priority.INFO, "El producto ya existe");
 		}
 	}
