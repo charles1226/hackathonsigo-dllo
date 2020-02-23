@@ -1,3 +1,5 @@
+package com.siigo.invoice.test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import org.mockito.Spy;
 
 import com.siigo.invoice.dao.IClienteDAO;
 import com.siigo.invoice.dao.IFacturaDao;
+import com.siigo.invoice.dao.IItemDao;
 import com.siigo.invoice.dao.IProductoDao;
 import com.siigo.invoice.model.Cliente;
 import com.siigo.invoice.model.Factura;
@@ -23,6 +26,9 @@ import com.siigo.invoice.services.ClienteServiceImpl;
 
 public class ClienteServiceTest {
 
+	@Spy
+	IItemDao itemDao;
+	
 	@Spy
 	IProductoDao iProductoDao;
 	
@@ -43,6 +49,10 @@ public class ClienteServiceTest {
 	@Test
 	public void createTest() {
 		Cliente cliente = new Cliente();
+		cliente.setNombre("Charles");
+		cliente.setApellido("prueba");
+		cliente.setEmail("nessjcharles@gmail.com");
+		
 		Cliente clienteAlmacenado = objetoCliente();
 		Mockito.when(iclienteDao.save(cliente)).thenReturn(cliente);
 		cliente = clienteServiceImpl.save(cliente);
@@ -76,18 +86,19 @@ public class ClienteServiceTest {
 		
 		Mockito.when(iFacturaDao.findById(id)).thenReturn(Optional.of(objetoFactura()));
 		Factura factura = clienteServiceImpl.findFacturaById(id);
-		assertEquals(factura.getObservacion(),"facturaPrueba");
+		assertEquals("facturaPrueba",factura.getObservacion());
 	}
-	
+
 	@Test
 	public void facturaSaveTest() {
 		Factura factura = new Factura();
 		
 		Mockito.when(iFacturaDao.save(factura)).thenReturn(objetoFactura());
 		Factura facturaF = clienteServiceImpl.saveFactura(factura);
-		assertEquals(facturaF.getDescripcion(),"facturaUno");
+		assertEquals("facturaUno",facturaF.getDescripcion());
 	}
 	
+
 	@Test
 	public void productoPorNombre() {
 		String nombre = "productoUno";
@@ -95,9 +106,9 @@ public class ClienteServiceTest {
 		Producto producto = new Producto();
 		lista.add(producto );
 		
-		Mockito.when(iProductoDao.findByNombreStartingWithIgnoreCase(nombre)).thenReturn(lista);
+		Mockito.when(iProductoDao.findByNombreContainingIgnoreCase(nombre)).thenReturn(lista);
 		List<Producto> listaf = clienteServiceImpl.findProductoByNombre(nombre);
-		assertEquals(listaf.size(),1);
+		assertEquals(1,listaf.size());
 	}
 	
 	public Cliente objetoCliente() {
