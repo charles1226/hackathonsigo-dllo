@@ -1,0 +1,87 @@
+<div class="abrir-modal animacion fadeIn" *ngIf="modalService.modal">
+  <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ titulo }}</h5>
+          <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <table class="table table-bordered table-striped my-4">
+                <thead>
+                  <tr>
+                    <th colspan="2">Datos del cliente</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-weight: bold;">Nombre</td>
+                    <td>{{cliente.nombre}}</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: bold;">Apellido</td>
+                    <td>{{cliente.apellido}}</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: bold;">Correo</td>
+                    <td>{{cliente.email}}</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: bold;">Fecha de creación</td>
+                    <td>{{cliente.createAt | date:"fullDate"}}</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: bold;">Región</td>
+                    <td>{{cliente.region.nombre}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row" *ngIf="authService.hasRole('ROLE_ADMIN')">
+              <button type="button" class="btn btn-success btn-sm" [routerLink]="['/facturas/form', cliente.id]">crear factura</button>
+            </div>
+            <div class="row">
+
+              <div class="alert alert-info my-4" *ngIf="cliente.facturas.length == 0">
+                No hay facturas asignadas para el cliente {{cliente.nombre}} {{cliente.apellido}}
+              </div>
+
+              <table class="table table-bordered table-striped my-4" *ngIf="cliente.facturas.length > 0">
+                <thead>
+                  <tr>
+                    <th>Folio</th>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Total</th>
+                    <th>Detalle</th>
+                    <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let factura of cliente.facturas">
+                    <td>{{factura.id}}</td>
+                    <td>{{factura.descripcion}}</td>
+                    <td>{{factura.createAt}}</td>
+                    <td>{{factura.estado == -1 ? 'En cola' : 'Finalizada'}}</td>
+                    <td>{{factura.total}}</td>
+                    <td><button class="btn btn-primary btn-sm" type="button" [routerLink]="['/facturas', factura.id]">Ver</button></td>
+                    <td *ngIf="authService.hasRole('ROLE_ADMIN')"><button class="btn btn-danger btn-sm" type="button" (click)="delete(factura)">Eliminar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button (click)="cerrarModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

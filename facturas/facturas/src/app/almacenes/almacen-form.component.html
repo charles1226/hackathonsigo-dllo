@@ -1,0 +1,88 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+  <li *ngFor="let err of errores">
+    {{ err }}
+  </li>
+</ul>
+<div class="card text-dark">
+  <div class="card-header">{{ titulo }}</div>
+  <div class="card-body">
+    <h4 class="card-title">
+      <a [routerLink]="['/almacenes']" class="btn btn-secondary btn-xs">&laquo; volver</a>
+    </h4>
+    <form #almacenForm="ngForm">
+      <div class="form-group row">
+        <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" [(ngModel)]="almacen.nombre" name="nombre" #nombre="ngModel"> <!-- required minlength="4" -->
+          <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            <div *ngIf="nombre.errors.required">
+              Nombre es requerido
+            </div>
+            <div *ngIf="nombre.errors.minlength">
+              Nombre debe tener al menos 4 caracteres
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="direccion" class="col-form-label col-sm-2">Dirección</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" [(ngModel)]="almacen.direccion" name="direccion" #direccion="ngModel"> <!-- required -->
+          <div class="alert alert-danger" *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
+            <div *ngIf="direccion.errors.required">
+              Dirección es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <mat-form-field>
+            <input type="text" placeholder="Añadir producto" aria-label="Productos" matInput [formControl]="autocompleteControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombre" (optionSelected)="seleccionarProducto($event)">
+              <mat-option *ngFor="let producto of productosFiltrados | async" [value]="producto">
+                {{producto.nombre}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="alert alert-info text-center my-4" *ngIf="almacen.items.length == 0">
+        No hay líneas asignadas para la factura. Debe agregar al menos una!
+      </div>
+      <table class="table table-striped table-hover table-sm" *ngIf="almacen.items.length > 0">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of almacen.items">
+            <td>{{item.producto.nombre}}</td>
+            <td>{{item.producto.precio}}</td>
+            <td><input type="number" value="{{item.cantidad}}" class="form-control col-sm-4" (change)="actualizarCantidad(item.producto.id, $event)"></td>
+            <td><button class="btn btn-danger btn-sm" type="button" (click)="eliminarItemAlmacen(item.producto.id)">x</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+
+
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button class="btn btn-primary" role="button" (click)='create(almacenForm)' *ngIf="!almacen.id else elseBlock" [disabled]="!almacenForm.form.valid">Crear</button>
+
+          <ng-template #elseBlock>
+            <button class="btn btn-primary" role="button" (click)='update(almacenForm)' [disabled]="!almacenForm.form.valid">Editar</button>
+          </ng-template>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

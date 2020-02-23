@@ -1,0 +1,38 @@
+<!--<detalle-almacen *ngIf="almacenSeleccionado" [almacen]="almacenSeleccionado"></detalle-almacen>-->
+
+<div class="card mb-3">
+  <div class="card-header">Almacenes</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Listado de almacenes</h5>
+    <div class="my-2 text-left">
+      <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-primary" type="button" [routerLink]="['/almacenes/form']">
+        Crear Almacen
+      </button>
+    </div>
+    <div *ngIf="almacenes?.length == 0" class="alert alert-info">
+      No hay registros en la base de datos!
+    </div>
+    <table class="table table-bordered table-striped" *ngIf="almacenes?.length>0">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Dirección</th>
+          <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
+          <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let almacen of almacenes">
+          <td>{{ almacen.nombre }}</td>
+          <td>{{ almacen.direccion }}</td><td *ngIf="authService.hasRole('ROLE_ADMIN')">
+            <button type="button" name="editar" [routerLink]="['/almacenes/form', almacen.id]" class="btn btn-primary btn-sm">Editar</button>
+          </td>
+          <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+            <button type="button" name="eliminar" (click)='delete(almacen)' class="btn btn-danger btn-sm">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
+  </div>
+</div>
