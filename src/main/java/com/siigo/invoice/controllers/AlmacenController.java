@@ -20,8 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.siigo.invoice.model.Cliente;
-import com.siigo.invoice.model.Region;
+import com.siigo.invoice.model.Producto;
+import com.siigo.invoice.model.Warehouse;
+import com.siigo.invoice.services.IAlmacenService;
 import com.siigo.invoice.services.IClienteService;
 import com.siigo.invoice.util.search.SearchResult;
 import com.siigo.invoice.util.search.SearcherDataDTO;
@@ -32,52 +33,54 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/api")
-public class ClienteCotroller {
+public class AlmacenController {
 
 	private final IClienteService clienteService;
+	private final IAlmacenService almacenService;
 	
-	@GetMapping(value = "/clientes")
-	public List<Cliente> index() {
-		return clienteService.findAll();
+	@GetMapping(value = "/almacenes")
+	public List<Warehouse> index() {
+		return almacenService.findAll();
 	}
 	
-	@GetMapping(value = "/clientes/page/{page}")
-	public ResponseEntity<SearcherDataDTO<Cliente>> page(@PathVariable(name = "page") Long page) {
-		SearchResult<Cliente> clientesResult = clienteService.findAll(PageRequest.of(page.intValue(), 5));
-		return new ResponseEntity<SearcherDataDTO<Cliente>>(new SearcherDataDTO<Cliente>(page, clientesResult.getResultsCount(), clientesResult.getResult()), HttpStatus.OK);
+	@GetMapping(value = "/almacenes/page/{page}")
+	public ResponseEntity<SearcherDataDTO<Warehouse>> page(@PathVariable(name = "page") Long page) {
+		SearchResult<Warehouse> almacenessResult = almacenService.findAll(PageRequest.of(page.intValue(), 5));
+		return new ResponseEntity<SearcherDataDTO<Warehouse>>(new SearcherDataDTO<Warehouse>(page, almacenessResult.getResultsCount(), almacenessResult.getResult()), HttpStatus.OK);
 	}
 	
 	@Secured({"ROLE_ADMIN", "ROLE_USER"})
-	@GetMapping(value = "/clientes/{id}")
-	public Cliente show(@PathVariable UUID id) {
-		return clienteService.findById(id);
+	@GetMapping(value = "/almacenes/{id}")
+	public Warehouse show(@PathVariable UUID id) {
+		return almacenService.findById(id);
 	}
 	
 	@Secured("ROLE_ADMIN")
-	@PostMapping(value = "/clientes")
+	@PostMapping(value = "/almacenes")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente create(@Valid @RequestBody Cliente cliente) {
-		return clienteService.save(cliente);
+	public Warehouse create(@Valid @RequestBody Warehouse almacen) {
+		return almacenService.save(almacen);
 	}
 	
 	@Secured("ROLE_ADMIN")
 	@ResponseStatus(HttpStatus.CREATED)
-	@PutMapping(value = "/clientes")
-	public Cliente update(@RequestBody Cliente cliente){
-		return clienteService.save(cliente);
+	@PutMapping(value = "/almacenes")
+	public Warehouse update(@RequestBody Warehouse almacen){
+		return almacenService.save(almacen);
 		
 	}
 	
 	@Secured("ROLE_ADMIN")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping(value = "/clientes/{id}")
+	@DeleteMapping(value = "/almacenes/{id}")
 	public void delete(@PathVariable UUID id) {
-		clienteService.delete(id);
+		almacenService.delete(id);
 	}
 	
-	@Secured("ROLE_ADMIN")
-	@GetMapping("/clientes/regiones")
-	public List<Region> listarRegiones(){
-		return clienteService.findAllRegiones();
+	@Secured({"ROLE_ADMIN"})
+	@GetMapping("/almacenes/filtrar-productos/{term}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Producto> filtrarProductos(@PathVariable String term){
+		return clienteService.findProductoByNombre(term);
 	}
 }

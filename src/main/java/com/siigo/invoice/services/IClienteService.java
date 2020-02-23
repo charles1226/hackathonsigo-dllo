@@ -11,9 +11,9 @@ import com.siigo.invoice.model.Producto;
 import com.siigo.invoice.model.Region;
 import com.siigo.invoice.util.search.SearchResult;
 
-public interface IClienteService {
+	public interface IClienteService {
 
-public List<Cliente> findAll();
+	public List<Cliente> findAll();
 	
 	public SearchResult<Cliente> findAll(Pageable pageable);
 	
@@ -32,4 +32,6 @@ public List<Cliente> findAll();
 	public void deleteFacturaById(UUID id);
 	
 	public List<Producto> findProductoByNombre(String term);
+	
+	public void verificarStock(Factura factura);
 }

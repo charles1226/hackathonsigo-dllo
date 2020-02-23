@@ -1,16 +1,3 @@
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037551', 'Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-01-01');
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037552', 'Mr. John', 'Doe', 'john.doe@gmail.com', '2018-01-02');
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037553', 'Linus', 'Torvalds', 'linus.torvalds@gmail.com', '2018-01-03');
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037554', 'Rasmus', 'Lerdorft', 'rasmus.lerdorft@gmail.com', '2018-01-04');
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037555', 'Erich', 'Gamma', 'erich.gamma@gmail.com', '2018-02-01');
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037556', 'Richard', 'Helm', 'richard.helm@gmail.com', '2018-02-10');
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037557', 'Ralph', 'Johnson', 'ralph.johnson@gmail.com', '2018-02-18');
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037558', 'John', 'Vlissides', 'john.vlissides@gmail.com', '2018-02-28');
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037559', 'Dr. James', 'Gosling', 'james.gosling@gmail.com', '2018-03-03');
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037550', 'Magma', 'Lee', 'magma.lee@gmail.com', '2018-03-04');
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037511', 'Tornado', 'Roe', 'tornado.roe@gmail.com', '2018-03-05');
-INSERT INTO clientes (id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037521', 'Jade', 'Doe', 'jade.doe@gmail.com', '2018-03-06');
-
 INSERT INTO regiones (id, nombre) VALUES ('01c8a9da-59e5-4228-a338-3c0108037521', 'Sudamérica');
 INSERT INTO regiones (id, nombre) VALUES ('02c8a9da-59e5-4228-a338-3c0108037521', 'Centroamérica');
 INSERT INTO regiones (id, nombre) VALUES ('03c8a9da-59e5-4228-a338-3c0108037521', 'Norteamérica');
@@ -19,6 +6,19 @@ INSERT INTO regiones (id, nombre) VALUES ('05c8a9da-59e5-4228-a338-3c0108037521'
 INSERT INTO regiones (id, nombre) VALUES ('06c8a9da-59e5-4228-a338-3c0108037521', 'Africa');
 INSERT INTO regiones (id, nombre) VALUES ('07c8a9da-59e5-4228-a338-3c0108037521', 'Oceanía');
 INSERT INTO regiones (id, nombre) VALUES ('08c8a9da-59e5-4228-a338-3c0108037521', 'Antártida');
+
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('01c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037551', 'Andrés', 'Guzmán', 'profesor@bolsadeideas.com', '2018-01-01');
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037552', 'Mr. John', 'Doe', 'john.doe@gmail.com', '2018-01-02');
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037553', 'Linus', 'Torvalds', 'linus.torvalds@gmail.com', '2018-01-03');
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('04c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037554', 'Rasmus', 'Lerdorft', 'rasmus.lerdorft@gmail.com', '2018-01-04');
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('03c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037555', 'Erich', 'Gamma', 'erich.gamma@gmail.com', '2018-02-01');
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('03c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037556', 'Richard', 'Helm', 'richard.helm@gmail.com', '2018-02-10');
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('03c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037557', 'Ralph', 'Johnson', 'ralph.johnson@gmail.com', '2018-02-18');
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('03c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037558', 'John', 'Vlissides', 'john.vlissides@gmail.com', '2018-02-28');
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('05c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037559', 'Dr. James', 'Gosling', 'james.gosling@gmail.com', '2018-03-03');
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('06c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037550', 'Magma', 'Lee', 'magma.lee@gmail.com', '2018-03-04');
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('07c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037511', 'Tornado', 'Roe', 'tornado.roe@gmail.com', '2018-03-05');
+INSERT INTO clientes (region_id, id, nombre, apellido, email, create_at) VALUES ('08c8a9da-59e5-4228-a338-3c0108037521', '04c8a9da-59e5-4228-a338-3c0108037521', 'Jade', 'Doe', 'jade.doe@gmail.com', '2018-03-06');
 
 INSERT INTO usuarios (id, username, password, enabled, nombre, apellido, email) VALUES ('14c8a9da-59e5-4228-a338-3c0108037521', 'andres','$2a$10$C3Uln5uqnzx/GswADURJGOIdBqYrly9731fnwKDaUdBkt/M3qvtLq',true, 'Andres', 'Guzman','profesor@bolsadeideas.com');
 INSERT INTO usuarios (id, username, password, enabled, nombre, apellido, email) VALUES ('24c8a9da-59e5-4228-a338-3c0108037521', 'admin','$2a$10$RmdEsvEfhI7Rcm9f/uZXPebZVCcPC7ZXZwV51efAvMAp1rIaRAfPK',true, 'John', 'Doe','jhon.doe@bolsadeideas.com');
